@@ -2,6 +2,12 @@
 
 server <- function(input, output, session) {
   
+  output$uiDateRange <- renderUI ({
+    today <- Sys.Date()
+    lastWeek <- today - 7
+    dateRangeInput("dateRange", label = "Date Range", start = as.character(lastWeek), min = "2023-06-01", end = as.character(today), max = as.character(today) )
+  })
+  
 
   output$temp1 <- renderPlotly( {
     
@@ -22,6 +28,9 @@ server <- function(input, output, session) {
   
   output$temp2 <- renderPlotly( {
     #data <- getDataForDevice("80000005-0001-0002-0000-000080000bcc")
+    if(is.null(input$dateRange)) {
+      return(NULL)
+    }
     start <- as.numeric(anytime(input$dateRange[1])) - 36000
     end <- as.numeric(anytime(input$dateRange[2])) - 36000
     data <- getDataRangeForDevice("80000005-0001-0002-0000-000080000bcc", start, end)
