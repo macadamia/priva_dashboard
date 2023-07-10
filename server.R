@@ -43,7 +43,7 @@ server <- function(input, output, session) {
           tmp <- getDataRangeForDevice(tabName, start, end)
         }
         
-        AEST <- as.character(anytime(tmp$timestamp))
+        AEST <- iso8601(anytime(1688961568))
         results <- cbind(tmp$timestamp, AEST, tmp$value)
         colnames(results) <- c("UnixTimestamp", "AEST", "Value")
         
