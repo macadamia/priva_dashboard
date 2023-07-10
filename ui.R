@@ -9,9 +9,9 @@ ui <- dashboardPage(skin = "green",
     dashboardHeader(title = "Priva (Ayr)"),
     
     dashboardSidebar(
-      radioButtons("metVariable","Choose type",
-                   c("Measured Temperature 1" = "temp0001", "Measured Temperature 2" = "temp0002"),
-                   selected = "temp001")
+      dateRangeInput("dateRange", label = "Date Range", start = "2023-06-01", min = "2023-06-01", end = as.character(Sys.Date()), max = as.character(Sys.Date()) ),
+      checkboxInput("allData", "Get All Data", value = F),
+      downloadButton("downloadData", "Download")
       ),
       
       dashboardBody(
@@ -30,8 +30,8 @@ ui <- dashboardPage(skin = "green",
                                )
                              )
                     ),
-        )
-      ),
+        ),
+  )
 )
 
 
