@@ -2,8 +2,18 @@
 
 server <- function(input, output, session) {
   
+
   output$temp1 <- renderPlotly( {
-    data <- getDataForDevice("80000005-0001-0001-0000-000080000bcc")
+    
+    if(is.null(input$dateRange)) {
+      return(NULL)
+    }
+    #data <- getDataForDevice("80000005-0001-0001-0000-000080000bcc")
+   
+    start <- as.numeric(anytime(input$dateRange[1])) - 36000
+    end <- as.numeric(anytime(input$dateRange[2])) - 36000
+    data <- getDataRangeForDevice("80000005-0001-0001-0000-000080000bcc", start, end)
+    
     datetime <- anytime(data$timestamp)
     p <- plot_ly(data, x = datetime, y = ~value,  type = "scatter", mode='lines', name="observed",
                  line=list(color="#ff7979", width = 4),showlegend = F) %>% 
@@ -11,7 +21,10 @@ server <- function(input, output, session) {
   })
   
   output$temp2 <- renderPlotly( {
-    data <- getDataForDevice("80000005-0001-0002-0000-000080000bcc")
+    #data <- getDataForDevice("80000005-0001-0002-0000-000080000bcc")
+    start <- as.numeric(anytime(input$dateRange[1])) - 36000
+    end <- as.numeric(anytime(input$dateRange[2])) - 36000
+    data <- getDataRangeForDevice("80000005-0001-0002-0000-000080000bcc", start, end)
     datetime <- anytime(data$timestamp)
     p <- plot_ly(data, x = datetime, y = ~value,  type = "scatter", mode='lines', name="observed",
                  line=list(color="#ff7979", width = 4),showlegend = F) %>% 
