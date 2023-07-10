@@ -68,7 +68,10 @@ server <- function(input, output, session) {
           i <- i + 1
         }
       })
+      withProgress(message = 'Zipping files', value = i, {
         zip(file, files)
+        incProgress(N,"Done")
+      })
     }
   )
   
