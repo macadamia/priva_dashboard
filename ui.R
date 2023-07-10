@@ -6,9 +6,9 @@ source('helpers.R')
 
 ui <- dashboardPage(skin = "green",
                     
-    dashboardHeader(title = "Priva (Ayr)"),
+    dashboardHeader(title = "Priva (Ayr)", titleWidth = 250),
     
-    dashboardSidebar(
+    dashboardSidebar( width = 250,
       dateRangeInput("dateRange", label = "Date Range", start = "2023-06-01", min = "2023-06-01", end = as.character(Sys.Date()), max = as.character(Sys.Date()) ),
       checkboxInput("allData", "Get All Data", value = F),
       downloadButton("downloadData", "Download")
