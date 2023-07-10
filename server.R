@@ -29,8 +29,9 @@ server <- function(input, output, session) {
       tables <- getTables()[,1]
       
       files <- vector()
-      withProgress(message = 'Zipping files', value = 0, {
+      withProgress(message = 'Getting files', value = 0, {
         N <- length(tables)
+        i <- 1
         for(tabName in tables) {
           csv <- paste(tabName, 'csv', sep = ".")
           
@@ -63,7 +64,8 @@ server <- function(input, output, session) {
           close(csvFile)
           
           files <- c(files, csv)
-          incProgress(1/N, detail = paste("Doing file", i))
+          incProgress(1/N, detail = paste("Doing file", i, 'of', N))
+          i <- i + 1
         }
       })
         zip(file, files)
