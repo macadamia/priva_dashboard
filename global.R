@@ -6,9 +6,23 @@ library(anytime)
 library(tidyverse)
 library(RMariaDB)
 library(plotly)
+library
 
 mysqlUser <- 'dashboard_user'
 mysqlPassword <- "Mang02020!"
+
+
+con <- dbConnect(RMariaDB::MariaDB(), dbname = "priva", user = mysqlUser, password = mysqlPassword)
+res <- dbSendQuery(con, "select * from datapoints")
+datapoints <- dbFetch(res, n=-1)
+dbClearResult(res)
+dbDisconnect(con)
+
+tableDetails1 <- vector()
+for(i in 1:nrow(datapoints)) {
+  eval(parse(text=paste0("tableDetails1 <- c(tableDetails1, '",datapoints$name[i],"' = '",datapoints$variableId[i],"')")))
+}
+tableDetails2 <- tableDetails1
 
 
 f1 <- list(
@@ -49,6 +63,14 @@ xaxistxt <- list(
 
 temperatureYAxis <- list(
   title = "Temperature (°C)",
+  titlefont = f1,
+  showticklabels = TRUE,
+  tickangle = 0,
+  tickfont = f1
+)
+
+genericYAxis <- list(
+  title = "Value",
   titlefont = f1,
   showticklabels = TRUE,
   tickangle = 0,

@@ -11,7 +11,9 @@ ui <- dashboardPage(skin = "green",
     dashboardSidebar( width = 250,
       uiOutput("uiDateRange"),
       checkboxInput("allData", "Get All Data", value = F),
-      downloadButton("downloadData", "Download")
+      downloadButton("downloadData", "Download"),
+      textInput("searchText","Search...",placeholder = "Sensor Name"),
+      selectInput("name", "Name of Variable", choices = unique(datapoints$name), selected = head(datapoints$name,1))
       ),
       
       dashboardBody(
@@ -23,11 +25,8 @@ ui <- dashboardPage(skin = "green",
                     tabPanel("Graphs & Forecasts",                
                              fluidRow(
                                fluidRow(
-                                 plotlyOutput("temp1")
+                                 plotlyOutput("graph")
                                ),
-                               fluidRow(
-                                 plotlyOutput("temp2")
-                               )
                              )
                     ),
         ),
