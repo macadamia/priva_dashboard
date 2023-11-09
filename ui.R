@@ -10,7 +10,7 @@ ui <- dashboardPage(skin = "green",
     
     dashboardSidebar( width = 250,
       uiOutput("uiDateRange"),
-      checkboxInput("allData", "Get All Data", value = F),
+      checkboxInput("allData", "Get All Data, unchecked for date range", value = F),
       downloadButton("downloadData", "Download"),
       textInput("searchText","Search...",placeholder = "Sensor Name"),
       selectInput("name", "Name of Variable", choices = unique(datapoints$name), selected = head(datapoints$name,1))

@@ -21,7 +21,11 @@ server <- function(input, output, session) {
   output$uiDateRange <- renderUI ({
     today <- Sys.Date()
     lastWeek <- today - 7
-    dateRangeInput("dateRange", label = "Date Range", start = as.character(lastWeek), min = "2023-06-01", end = as.character(today), max = as.character(today) )
+    dateRangeInput("dateRange", label = "Date Range", start = as.character(lastWeek),  end = as.character(today), min = "2023-06-01", max = as.character(today) )
+    
+    #Test
+    #dateRangeInput("dateRange", label = "Date Range", start = "2023-06-04", end = "2023-06-04", min = "2023-06-01", max = as.character(today) )
+    
   })
 
   output$graph <- renderPlotly( {
@@ -30,8 +34,8 @@ server <- function(input, output, session) {
       return(NULL)
     }
     
-    start <- as.numeric(anytime(input$dateRange[1])) - 36000
-    end <- as.numeric(anytime(input$dateRange[2])) - 36000
+    start <- as.numeric(anytime(paste0(input$dateRange[1], "T00:00:00"))) - 36000
+    end <- as.numeric(anytime(paste0(input$dateRange[2], "T23:59:59"))) - 36000
 
     cat("chosen Table",chosenTable()$variableId, "\n")
     data <- getDataRangeForDevice(chosenTable()$variableId, start, end)
@@ -66,7 +70,7 @@ server <- function(input, output, session) {
           if(input$allData) {
             tmp <- getAllDataForDevice(tabName)
           } else {
-            #browser() 
+
             start <- as.numeric(anytime(input$dateRange[1])) - 36000
             end <- as.numeric(anytime(input$dateRange[2])) - 36000
             tmp <- getDataRangeForDevice(tabName, start, end)

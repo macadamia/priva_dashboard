@@ -34,6 +34,7 @@ getAllDataForDevice <- function(tabname) {
 getDataRangeForDevice <- function(tabname, startTS, endTS) {
   con <- dbConnect(RMariaDB::MariaDB(), dbname = "priva", user = mysqlUser, password = mysqlPassword)
   q <- paste0("select * from `",tabname,"` where timestamp >= ", startTS," and timestamp <= ", endTS," order by timestamp asc")
+  print(q)
   res <- dbSendQuery(con, q)
   fetched <- dbFetch(res, n=-1)
   dbClearResult(res)
