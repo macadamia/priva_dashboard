@@ -66,7 +66,7 @@ server <- function(input, output, session) {
         
         for(tabName in tables) {
           print(tabName)
-          csv <- paste(prettyNames[tabName], 'csv', sep = ".")
+          csv <- paste(betterNames[tabName], 'csv', sep = ".")
           
           sensorName <- getSensorName(tabName)
           

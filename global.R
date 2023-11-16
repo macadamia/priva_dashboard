@@ -14,8 +14,9 @@ mysqlPassword <- "Mang02020!"
 
 namesConversion <- read_xlsx("nameConversion.xlsx", sheet = "Names")
 print(namesConversion)
+betterNames <- Dict$new("Test" = "OK")
 for(i in 1:nrow(namesConversion)) {
-  prettyNames[namesConversion$Raw[i]] = namesConversion$Pretty[i]
+  betterNames[namesConversion$Raw[i]] = namesConversion$Pretty[i]
 }
 
 con <- dbConnect(RMariaDB::MariaDB(), dbname = "priva", user = mysqlUser, password = mysqlPassword)
