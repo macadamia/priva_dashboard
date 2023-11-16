@@ -13,6 +13,7 @@ mysqlUser <- 'dashboard_user'
 mysqlPassword <- "Mang02020!"
 
 namesConversion <- read_xlsx("nameConversion.xlsx", sheet = "Names")
+print(namesConversion)
 for(i in 1:nrow(namesConversion)) {
   prettyNames[namesConversion$Raw[i]] = namesConversion$Pretty[i]
 }
