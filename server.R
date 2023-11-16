@@ -62,6 +62,11 @@ server <- function(input, output, session) {
       withProgress(message = 'Getting files', value = 0, {
         N <- length(tables)
         i <- 1
+        namesConversion <- read_xlsx("nameConversion.xlsx", sheet = "Names")
+        for(i in 1:nrow(namesConversion)) {
+          prettyNames[namesConversion$Raw[i]] = namesConversion$Pretty[i]
+        }
+        
         for(tabName in tables) {
           csv <- paste(prettyNames[tabName], 'csv', sep = ".")
           
