@@ -6,11 +6,18 @@ library(anytime)
 library(tidyverse)
 library(RMariaDB)
 library(plotly)
-library
+library(readxl)
+library(Dict)
 
 mysqlUser <- 'dashboard_user'
 mysqlPassword <- "Mang02020!"
 
+namesConversion <- read_xlsx("nameConversion.xlsx", sheet = "Names")
+
+
+for(i in 1:nrow(namesConversion)) {
+  prettyNames[namesConversion$Raw[i]] = namesConversion$Pretty[i]
+}
 
 con <- dbConnect(RMariaDB::MariaDB(), dbname = "priva", user = mysqlUser, password = mysqlPassword)
 res <- dbSendQuery(con, "select * from datapoints")
