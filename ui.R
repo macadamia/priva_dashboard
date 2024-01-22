@@ -22,7 +22,7 @@ ui <- dashboardPage(skin = "green",
         ),
         useShinyjs(),
         tabsetPanel(id = "mainPanelSet",
-                    tabPanel("Graphs & Forecasts",                
+                    tabPanel("Preview",                
                              fluidRow(
                                fluidRow(
                                  plotlyOutput("graph")
